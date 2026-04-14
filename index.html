@@ -202,6 +202,69 @@
             .container { max-width: 700px; padding: 50px; }
             .btn { font-size: 16px; padding: 18px; border-radius: 20px; }
         }
+
+        /* --- نافذة تلميح الحفظ (مربعة، بوسط الشاشة) --- */
+        .save-hint-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(2, 6, 23, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: saveHintFadeIn 0.35s ease-out;
+        }
+        .save-hint-overlay.hiding {
+            animation: saveHintFadeOut 0.35s ease-in forwards;
+        }
+        .save-hint-modal {
+            width: min(280px, 85vw);
+            aspect-ratio: 1;
+            max-height: min(280px, 70vh);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 28px 22px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.1);
+            color: var(--text-main);
+        }
+        .save-hint-modal i {
+            font-size: 2.2rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 12px rgba(14, 165, 233, 0.45));
+        }
+        .save-hint-modal p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.75;
+            color: var(--text-main);
+        }
+        .save-hint-modal small {
+            display: block;
+            margin-top: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        @keyframes saveHintFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes saveHintFadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -217,7 +280,7 @@
         <div class="instructions" id="instructionsBox">
             <font><i class="fas fa-info-circle"></i> طالبنا العزيز:</font>
             ١. اكتب اسمك الرباعي كاملاً.<br>
-            ٢. اضغط توليد ثم <b>حفظ الباركود</b> .<br>
+            ٢. اضغط توليد ثم <b>حفظ في الاستديو</b>.<br>
             ٣. أبرز الصورة لقرائتها عند أخذ الحضور.
         </div>
 
@@ -235,7 +298,7 @@
             </div>
             
             <button class="btn btn-success" onclick="downloadQR()" id="btnDownload">
-                <span>حفظ الباركود في الهاتف</span><i class="fas fa-download btn-icon"></i>
+                <span>حفظ في الاستديو</span><i class="fas fa-download btn-icon"></i>
             </button>
             <button class="btn btn-dept" onclick="resetQR()">
                 <span>إنشاء باركود آخر</span><i class="fas fa-redo-alt btn-icon"></i>
@@ -247,53 +310,130 @@
 
 <div class="footer"><a href="https://har37ith.vercel.app/" target="_blank">تم التطوير بواسطة حارث</a></div>
 
+<div id="saveHintOverlay" class="save-hint-overlay" style="display: none;" aria-hidden="true"></div>
+
 <script>
+    function countNameParts(name) {
+        return name.split(/\s+/).filter(function (p) { return p.length > 0; }).length;
+    }
+
+    function showSaveHintModal() {
+        var overlay = document.getElementById("saveHintOverlay");
+        overlay.innerHTML =
+            '<div class="save-hint-modal" role="dialog" aria-live="polite">' +
+            '<i class="fas fa-mobile-screen-button" aria-hidden="true"></i>' +
+            '<p>اعمل <b style="color:var(--secondary)">حفظ في الاستديو</b> من الزر أدناه، أو خُذْ لقطة شاشة (سكرين شوت) للصورة.</p>' +
+            '<small>تختفي هذه النافذة تلقائياً</small>' +
+            "</div>";
+        overlay.style.display = "flex";
+        overlay.setAttribute("aria-hidden", "false");
+        var ms = 4200;
+        setTimeout(function () {
+            overlay.classList.add("hiding");
+            setTimeout(function () {
+                overlay.style.display = "none";
+                overlay.classList.remove("hiding");
+                overlay.innerHTML = "";
+                overlay.setAttribute("aria-hidden", "true");
+            }, 320);
+        }, ms);
+    }
+
     function generateQR() {
-        const input = document.getElementById("studentNameForQR");
-        const name = input.value.trim();
-        
-        // التحقق من أن الاسم منطقي (ثنائي على الأقل)
-        if (name.length < 5 || name.split(" ").length < 2) {
-            alert("يرجى كتابة الاسم الثنائي أو الثلاثي بشكل صحيح ومكتمل.");
-            input.focus();
+        var input = document.getElementById("studentNameForQR");
+        var name = input.value.trim();
+
+        if (!name) {
             return;
         }
 
-        // توليد الباركود بدقة ممتازة للقراءة من شاشة الهاتف
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=15&data=${encodeURIComponent(name)}`;
-        
+        if (countNameParts(name) < 4) {
+            return;
+        }
+
+        var qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=15&data=" + encodeURIComponent(name);
+
         document.getElementById("qrImage").src = qrUrl;
         document.getElementById("displayName").innerText = name;
-        
-        // إخفاء حقل الإدخال والتعليمات وعرض النتيجة
+
         document.getElementById("inputBox").style.display = "none";
         document.getElementById("instructionsBox").style.display = "none";
         document.getElementById("qrResultBox").style.display = "flex";
+
+        showSaveHintModal();
     }
-    
+
+    function isIOSLike() {
+        var ua = navigator.userAgent || "";
+        if (/iPad|iPhone|iPod/.test(ua)) return true;
+        if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) return true;
+        return false;
+    }
+
     async function downloadQR() {
-        const name = document.getElementById("displayName").innerText;
-        const qrUrl = document.getElementById("qrImage").src;
-        
-        const btn = document.getElementById("btnDownload");
-        const originalHTML = btn.innerHTML; // استخدام innerHTML للحفاظ على الأيقونة
-        btn.innerHTML = `<span>جاري التحميل...</span><i class="fas fa-spinner fa-spin btn-icon"></i>`;
-        
+        var name = document.getElementById("displayName").innerText;
+        var qrUrl = document.getElementById("qrImage").src;
+
+        var btn = document.getElementById("btnDownload");
+        var originalHTML = btn.innerHTML;
+        btn.innerHTML = '<span>جاري التحميل...</span><i class="fas fa-spinner fa-spin btn-icon"></i>';
+        btn.disabled = true;
+
         try {
-            const response = await fetch(qrUrl);
-            const blob = await response.blob();
-            const link = document.createElement("a");
-            link.href = window.URL.createObjectURL(blob);
-            link.download = `هوية_الحضور_${name.replace(/\s+/g, '_')}.png`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            btn.innerHTML = `<span>تم الحفظ بنجاح</span><i class="fas fa-check btn-icon"></i>`;
-            setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+            var response = await fetch(qrUrl);
+            var blob = await response.blob();
+            var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
+            var file = new File([blob], filename, { type: blob.type || "image/png" });
+
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({ files: [file], title: filename });
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                return;
+            }
+
+            var url = URL.createObjectURL(blob);
+
+            if (isIOSLike()) {
+                var w = window.open("");
+                if (w) {
+                    w.document.write(
+                        "<!DOCTYPE html><html lang=\"ar\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>" +
+                            filename +
+                            "</title><style>body{margin:0;background:#020617;color:#f8fafc;font-family:Cairo,sans-serif;text-align:center;padding:16px}img{max-width:100%;height:auto;border-radius:12px;border:3px solid #fff}p{line-height:1.7;font-size:15px;margin-top:16px}</style></head><body><p style=\"color:#38bdf8;font-weight:800\">اضغط مطولاً على الصورة ← «حفظ في الصور»</p><img src=\"" +
+                            url +
+                            "\" alt=\"\"><p>إن لم يظهر الحفظ، استخدم لقطة الشاشة من الجهاز.</p></body></html>"
+                    );
+                    w.document.close();
+                } else {
+                    var aTab = document.createElement("a");
+                    aTab.href = url;
+                    aTab.target = "_blank";
+                    aTab.rel = "noopener";
+                    document.body.appendChild(aTab);
+                    aTab.click();
+                    document.body.removeChild(aTab);
+                }
+                setTimeout(function () { URL.revokeObjectURL(url); }, 120000);
+            } else {
+                var link = document.createElement("a");
+                link.href = url;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                setTimeout(function () { URL.revokeObjectURL(url); }, 2500);
+            }
+
+            btn.innerHTML = '<span>تم بنجاح</span><i class="fas fa-check btn-icon"></i>';
+            setTimeout(function () {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }, 2000);
         } catch (err) {
-            alert("عذراً، حدث خطأ أثناء الحفظ. يمكنك التقاط صورة للشاشة (Screenshot) بدلاً من ذلك.");
+            alert("عذراً، حدث خطأ. جرّب لقطة الشاشة أو افتح رابط الباركود في متصفح آخر.");
             btn.innerHTML = originalHTML;
+            btn.disabled = false;
         }
     }
     
