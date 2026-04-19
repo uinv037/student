@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>إصدار الهوية الذكية</title>
+    <title>إصدار الهوية الذكية - جامعة المعارف</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -193,6 +193,7 @@
             color: #fff;
             padding: 16px;
             text-align: center;
+            height: 52px;
         }
         .btn-half:first-child {
             border-radius: 16px 0 0 16px;
@@ -215,7 +216,17 @@
         .btn-half:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .btn-half:active { transform: translateY(1px); }
         .btn-half:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; filter: grayscale(100%); }
-        .btn-half-icon { position: absolute; left: 20px; font-size: 1.3rem; opacity: 0.9; pointer-events: none; }
+        .btn-half span {
+            flex: 1;
+            text-align: center;
+        }
+        .btn-half-icon { 
+            position: absolute; 
+            left: 20px; 
+            font-size: 1.3rem; 
+            opacity: 0.9; 
+            pointer-events: none;
+        }
         .btn-half-save {
             background: linear-gradient(135deg, var(--success), #059669);
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
@@ -229,6 +240,7 @@
         .btn-dept { 
             background: rgba(255,255,255,0.03); color: var(--text-main); border: 1px solid var(--glass-border); 
             backdrop-filter: blur(10px);
+            height: 52px;
         }
         .btn-dept:hover { 
             border-color: var(--secondary); background: rgba(14, 165, 233, 0.1); 
@@ -338,7 +350,7 @@
         <div class="instructions" id="instructionsBox">
             <font><i class="fas fa-info-circle"></i> طالبنا العزيز:</font>
             ١. اكتب اسمك الرباعي كاملاً.<br>
-            ٢. اضغط توليد ثم <b>حفظ في الاستديو</b>.<br>
+            ٢. اضغط توليد ثم <b>حفظ</b>.<br>
             ٣. أبرز الصورة لقرائتها عند أخذ الحضور.
         </div>
 
@@ -357,7 +369,7 @@
             
             <div class="btn-row">
                 <button class="btn-half btn-half-save" onclick="saveQRToGallery()" id="btnSave">
-                    <span>حفظ في الاستديو</span><i class="fas fa-download btn-half-icon"></i>
+                    <span>حفظ</span><i class="fas fa-download btn-half-icon"></i>
                 </button>
                 <button class="btn-half btn-half-share" onclick="shareQR()" id="btnShare">
                     <span>مشاركة</span><i class="fas fa-share-alt btn-half-icon"></i>
@@ -385,7 +397,7 @@
         overlay.innerHTML =
             '<div class="save-hint-modal" role="dialog" aria-live="polite">' +
             '<i class="fas fa-mobile-screen-button" aria-hidden="true"></i>' +
-            '<p>اعمل <b style="color:var(--secondary)">حفظ في الاستديو</b> من الزر أدناه، أو خُذْ لقطة شاشة (سكرين شوت) للصورة.</p>' +
+            '<p>اعمل <b style="color:var(--secondary)">حفظ</b> من الزر أدناه، أو خُذْ لقطة شاشة (سكرين شوت) للصورة.</p>' +
             '<small>تختفي هذه النافذة تلقائياً</small>' +
             "</div>";
         overlay.style.display = "flex";
