@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>إصدار الهوية الذكية - جامعة المعارف</title>
+    <title>إصدار الهوية الذكية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -168,6 +168,64 @@
 
         .btn-success { background: linear-gradient(135deg, var(--success), #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
         
+        /* أزرار مزدوجة للحفظ والمشاركة */
+        .btn-row {
+            display: flex;
+            width: 100%;
+            margin-bottom: 16px;
+            gap: 0;
+        }
+        .btn-half {
+            flex: 1;
+            border: 1px solid transparent;
+            font-size: 15px;
+            border-radius: 0;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            padding: 16px;
+            text-align: center;
+        }
+        .btn-half:first-child {
+            border-radius: 16px 0 0 16px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .btn-half:last-child {
+            border-radius: 0 16px 16px 0;
+        }
+        .btn-half::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: all 0.5s;
+        }
+        .btn-half:hover::before { left: 100%; }
+        .btn-half:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .btn-half:active { transform: translateY(1px); }
+        .btn-half:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; filter: grayscale(100%); }
+        .btn-half-icon { position: absolute; left: 20px; font-size: 1.3rem; opacity: 0.9; pointer-events: none; }
+        .btn-half-save {
+            background: linear-gradient(135deg, var(--success), #059669);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        .btn-half-share {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow: 0 4px 15px var(--primary-glow);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
         .btn-dept { 
             background: rgba(255,255,255,0.03); color: var(--text-main); border: 1px solid var(--glass-border); 
             backdrop-filter: blur(10px);
@@ -297,9 +355,14 @@
                 <div class="student-name-display" id="displayName"></div>
             </div>
             
-            <button class="btn btn-success" onclick="downloadQR()" id="btnDownload">
-                <span>حفظ في الاستديو</span><i class="fas fa-download btn-icon"></i>
-            </button>
+            <div class="btn-row">
+                <button class="btn-half btn-half-save" onclick="saveQRToGallery()" id="btnSave">
+                    <span>حفظ في الاستديو</span><i class="fas fa-download btn-half-icon"></i>
+                </button>
+                <button class="btn-half btn-half-share" onclick="shareQR()" id="btnShare">
+                    <span>مشاركة</span><i class="fas fa-share-alt btn-half-icon"></i>
+                </button>
+            </div>
             <button class="btn btn-dept" onclick="resetQR()">
                 <span>إنشاء باركود آخر</span><i class="fas fa-redo-alt btn-icon"></i>
             </button>
@@ -368,6 +431,79 @@
         if (/iPad|iPhone|iPod/.test(ua)) return true;
         if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) return true;
         return false;
+    }
+
+    async function saveQRToGallery() {
+        var name = document.getElementById("displayName").innerText;
+        var qrUrl = document.getElementById("qrImage").src;
+
+        var btn = document.getElementById("btnSave");
+        var originalHTML = btn.innerHTML;
+        btn.innerHTML = '<span>جاري الحفظ...</span><i class="fas fa-spinner fa-spin btn-half-icon"></i>';
+        btn.disabled = true;
+
+        try {
+            var response = await fetch(qrUrl);
+            var blob = await response.blob();
+            var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
+
+            // For Android and other devices - direct download
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement("a");
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(function () { URL.revokeObjectURL(url); }, 2500);
+
+            btn.innerHTML = '<span>تم الحفظ</span><i class="fas fa-check btn-half-icon"></i>';
+            setTimeout(function () {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }, 2000);
+        } catch (err) {
+            alert("عذراً، حدث خطأ. جرّب لقطة الشاشة.");
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        }
+    }
+
+    async function shareQR() {
+        var name = document.getElementById("displayName").innerText;
+        var qrUrl = document.getElementById("qrImage").src;
+
+        var btn = document.getElementById("btnShare");
+        var originalHTML = btn.innerHTML;
+        btn.innerHTML = '<span>جاري التحميل...</span><i class="fas fa-spinner fa-spin btn-half-icon"></i>';
+        btn.disabled = true;
+
+        try {
+            var response = await fetch(qrUrl);
+            var blob = await response.blob();
+            var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
+            var file = new File([blob], filename, { type: blob.type || "image/png" });
+
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({ files: [file], title: filename });
+                btn.innerHTML = '<span>تمت المشاركة</span><i class="fas fa-check btn-half-icon"></i>';
+                setTimeout(function () {
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                }, 2000);
+            } else {
+                // Fallback: copy link or show alert
+                alert("المشاركة غير مدعومة في هذا المتصفح. يمكنك حفظ الصورة ثم مشاركتها يدوياً.");
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
+        } catch (err) {
+            if (err.name !== 'AbortError') {
+                alert("عذراً، حدث خطأ أثناء المشاركة.");
+            }
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        }
     }
 
     async function downloadQR() {
