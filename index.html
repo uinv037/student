@@ -1,52 +1,62 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>إصدار الهوية الذكية - جامعة المعارف</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         /* ========================================================
            --- الثيم الزجاجي المظلم (Glassmorphism) الموحد ---
            ======================================================== */
-        :root { 
-            --primary: #6366f1; /* نيون نيلي */
+        :root {
+            --primary: #6366f1;
+            /* نيون نيلي */
             --primary-glow: rgba(99, 102, 241, 0.4);
-            --secondary: #0ea5e9; /* أزرق سماوي */
-            --accent: #8b5cf6; /* بنفسجي تكنولوجي */
-            --success: #10b981; /* أخضر ساطع */
-            --danger: #f43f5e; /* أحمر نيون */
-            --warning: #f59e0b; /* أصفر كهرماني */
-            
+            --secondary: #0ea5e9;
+            /* أزرق سماوي */
+            --accent: #8b5cf6;
+            /* بنفسجي تكنولوجي */
+            --success: #10b981;
+            /* أخضر ساطع */
+            --danger: #f43f5e;
+            /* أحمر نيون */
+            --warning: #f59e0b;
+            /* أصفر كهرماني */
+
             /* ألوان الخلفيات الزجاجية */
-            --bg-base: #020617; /* أسود ليلي عميق */
+            --bg-base: #020617;
+            /* أسود ليلي عميق */
             --glass-bg: rgba(15, 23, 42, 0.7);
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-hover: rgba(30, 41, 59, 0.9);
-            
+
             /* ألوان النصوص */
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
-        
+
         /* منع العودة للخلف بالسحب */
-        html, body { 
-            overscroll-behavior-x: none; 
+        html,
+        body {
+            overscroll-behavior-x: none;
             background-color: var(--bg-base);
         }
 
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            margin: 0; padding: 0;
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
             /* خلفية ديناميكية متدرجة تعطي طابع الـ Cyber */
-            background-image: 
+            background-image:
                 radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.12), transparent 25%),
                 radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.12), transparent 25%);
             background-attachment: fixed;
-            min-height: 100vh; 
-            display: flex; 
+            min-height: 100vh;
+            display: flex;
             flex-direction: column;
             color: var(--text-main);
             overflow-x: hidden;
@@ -58,41 +68,59 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--glass-border);
-            color: var(--text-main); 
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px; 
-            font-size: 26px; 
+            padding: 20px;
+            font-size: 26px;
             font-weight: 900;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             z-index: 1000;
-            text-shadow: 0 0 15px rgba(255,255,255,0.2);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
-        .top-bar-title { cursor: default; letter-spacing: 1px; pointer-events: none; }
+
+        .top-bar-title {
+            cursor: default;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
 
         /* --- الحاوية الرئيسية الزجاجية --- */
-        .main-wrapper { flex: 1; padding: 30px 15px 20px; display: flex; justify-content: center; align-items: flex-start; }
-        
-        .container { 
-            background: var(--glass-bg); 
+        .main-wrapper {
+            flex: 1;
+            padding: 30px 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            width: 100%; max-width: 650px; 
-            padding: 40px 30px; 
-            border-radius: 24px; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); 
-            border: 1px solid var(--glass-border); 
-            text-align: center; box-sizing: border-box; position: relative; margin-bottom: 10px;
+            width: 100%;
+            max-width: 650px;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+            margin-bottom: 10px;
         }
-        
-        .page-title { 
+
+        .page-title {
             background: linear-gradient(135deg, #fff, var(--text-muted));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 26px; font-weight: 900; margin-bottom: 25px; margin-top: 0; 
+            font-size: 26px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            margin-top: 0;
             letter-spacing: -0.5px;
         }
 
@@ -108,66 +136,137 @@
             color: var(--text-main);
             line-height: 1.8;
             backdrop-filter: blur(10px);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
         }
-        .instructions font { 
-            font-weight: 900; 
-            color: var(--secondary); 
-            font-size: 18px; 
-            display: block; 
-            margin-bottom: 10px; 
-            border-bottom: 1px dashed rgba(14,165,233,0.3); 
+
+        .instructions font {
+            font-weight: 900;
+            color: var(--secondary);
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed rgba(14, 165, 233, 0.3);
             padding-bottom: 5px;
             text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
         }
-        .instructions b { color: var(--warning); }
-        
-        /* --- حقول الإدخال --- */
-        .input-field { 
-            width: 100%; padding: 18px; border: 1px solid var(--glass-border); border-radius: 16px; 
-            font-size: 16px; margin-bottom: 20px; box-sizing: border-box; text-align: center; 
-            font-family: 'Cairo', sans-serif; background: rgba(0,0,0,0.2); font-weight: 700; 
-            color: #fff; transition: 0.3s; backdrop-filter: blur(5px);
+
+        .instructions b {
+            color: var(--warning);
         }
-        .input-field::placeholder { color: #64748b; font-weight: 600; }
-        .input-field:focus { 
-            outline: none; border-color: var(--secondary); background: rgba(0,0,0,0.4); 
-            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15); 
+
+        /* --- حقول الإدخال --- */
+        .input-field {
+            width: 100%;
+            padding: 18px;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            background: rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            color: #fff;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .input-field::placeholder {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
         }
 
         /* --- الأزرار المتقدمة (Neon & Glass) --- */
-        .btn { 
-            border: 1px solid transparent; width: 100%; font-size: 15px; 
-            border-radius: 16px; cursor: pointer; font-weight: 700; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            margin-bottom: 16px; display: flex; align-items: center; justify-content: center; 
-            box-sizing: border-box; font-family: 'Cairo', sans-serif;
-            position: relative; overflow: hidden;
+        .btn {
+            border: 1px solid transparent;
+            width: 100%;
+            font-size: 15px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            overflow: hidden;
             color: #fff;
             padding: 16px;
             text-align: center;
         }
-        .btn span { margin: 0 auto; z-index: 1; position: relative; }
-        
+
+        .btn span {
+            margin: 0 auto;
+            z-index: 1;
+            position: relative;
+        }
+
         .btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transition: all 0.5s;
         }
-        .btn:hover::before { left: 100%; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .btn:active { transform: translateY(1px); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; filter: grayscale(100%); }
-        
-        .btn-icon { position: absolute; left: 20px; font-size: 1.3rem; opacity: 0.9; pointer-events: none; }
-        
-        .btn-primary { 
-            background: linear-gradient(135deg, var(--primary), var(--accent)); 
-            box-shadow: 0 4px 15px var(--primary-glow); border: 1px solid rgba(255,255,255,0.1);
-        }
-        .btn-primary:hover { box-shadow: 0 8px 25px var(--primary-glow); }
 
-        .btn-success { background: linear-gradient(135deg, var(--success), #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
-        
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            filter: grayscale(100%);
+        }
+
+        .btn-icon {
+            position: absolute;
+            left: 20px;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow: 0 4px 15px var(--primary-glow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 25px var(--primary-glow);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
         /* أزرار مزدوجة للحفظ والمشاركة */
         .btn-row {
             display: flex;
@@ -175,6 +274,7 @@
             margin-bottom: 16px;
             gap: 15px;
         }
+
         .btn-half {
             flex: 1;
             border: 1px solid transparent;
@@ -195,12 +295,15 @@
             text-align: center;
             height: 52px;
         }
+
         .btn-half:first-child {
             border-radius: 16px;
         }
+
         .btn-half:last-child {
             border-radius: 16px;
         }
+
         .btn-half::before {
             content: '';
             position: absolute;
@@ -208,68 +311,150 @@
             left: -100%;
             width: 50%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transition: all 0.5s;
         }
-        .btn-half:hover::before { left: 100%; }
-        .btn-half:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .btn-half:active { transform: translateY(1px); }
-        .btn-half:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; filter: grayscale(100%); }
+
+        .btn-half:hover::before {
+            left: 100%;
+        }
+
+        .btn-half:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-half:active {
+            transform: translateY(1px);
+        }
+
+        .btn-half:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            filter: grayscale(100%);
+        }
+
         .btn-half span {
             flex: 1;
             text-align: center;
         }
-        .btn-half-icon { 
-            position: absolute; 
-            left: 20px; 
-            font-size: 1.3rem; 
-            opacity: 0.9; 
+
+        .btn-half-icon {
+            position: absolute;
+            left: 20px;
+            font-size: 1.3rem;
+            opacity: 0.9;
             pointer-events: none;
         }
+
         .btn-half-save {
             background: linear-gradient(135deg, var(--success), #059669);
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
+
         .btn-half-share {
             background: linear-gradient(135deg, var(--primary), var(--accent));
             box-shadow: 0 4px 15px var(--primary-glow);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .btn-dept { 
-            background: rgba(255,255,255,0.03); color: var(--text-main); border: 1px solid var(--glass-border); 
+
+        .btn-dept {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
             height: 52px;
         }
-        .btn-dept:hover { 
-            border-color: var(--secondary); background: rgba(14, 165, 233, 0.1); 
-            box-shadow: 0 0 20px rgba(14, 165, 233, 0.2); color: #fff;
+
+        .btn-dept:hover {
+            border-color: var(--secondary);
+            background: rgba(14, 165, 233, 0.1);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+            color: #fff;
         }
 
         /* --- تنسيقات قسم QR --- */
-        .qr-frame { 
-            background: rgba(255,255,255,0.02); padding: 20px; border-radius: 24px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-bottom: 30px; 
-            border: 2px solid var(--accent); display: inline-block; 
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+        .qr-frame {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            border: 2px solid var(--accent);
+            display: inline-block;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             backdrop-filter: blur(10px);
         }
-        #qrImage { display: block; max-width: 100%; width: 260px; height: 260px; border-radius: 12px; border: 4px solid #fff; }
-        .student-name-display { font-size: 22px; font-weight: 900; color: var(--text-main); margin-top: 18px; text-align: center; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-        
-        @keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        #qrImage {
+            display: block;
+            max-width: 100%;
+            width: 260px;
+            height: 260px;
+            border-radius: 12px;
+            border: 4px solid #fff;
+        }
+
+        .student-name-display {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-top: 18px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
 
         /* --- الفوتر --- */
-        .footer { text-align: center; padding: 15px 20px 20px; font-size: 14px; font-weight: 700; background: transparent; margin-top: auto; color: var(--text-muted); }
-        .footer a { color: var(--secondary); text-decoration: none; font-weight: 900; transition: 0.3s; }
-        .footer a:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+        .footer {
+            text-align: center;
+            padding: 15px 20px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            background: transparent;
+            margin-top: auto;
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 900;
+            transition: 0.3s;
+        }
+
+        .footer a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
 
         /* =========================================================
            دعم توافقية الشاشات (Responsive Design)
            ========================================================= */
         @media (min-width: 768px) {
-            .container { max-width: 700px; padding: 50px; }
-            .btn { font-size: 16px; padding: 18px; border-radius: 20px; }
+            .container {
+                max-width: 700px;
+                padding: 50px;
+            }
+
+            .btn {
+                font-size: 16px;
+                padding: 18px;
+                border-radius: 20px;
+            }
         }
 
         /* --- نافذة تلميح الحفظ (مربعة، بوسط الشاشة) --- */
@@ -286,9 +471,11 @@
             -webkit-backdrop-filter: blur(8px);
             animation: saveHintFadeIn 0.35s ease-out;
         }
+
         .save-hint-overlay.hiding {
             animation: saveHintFadeOut 0.35s ease-in forwards;
         }
+
         .save-hint-modal {
             width: min(280px, 85vw);
             aspect-ratio: 1;
@@ -303,15 +490,23 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
             color: var(--text-main);
         }
+
+        .confirm-modal {
+            aspect-ratio: auto;
+            width: min(340px, 90vw);
+            padding: 30px 20px;
+        }
+
         .save-hint-modal i {
             font-size: 2.2rem;
             color: var(--secondary);
             margin-bottom: 16px;
             filter: drop-shadow(0 0 12px rgba(14, 165, 233, 0.45));
         }
+
         .save-hint-modal p {
             margin: 0;
             font-size: 16px;
@@ -319,6 +514,7 @@
             line-height: 1.75;
             color: var(--text-main);
         }
+
         .save-hint-modal small {
             display: block;
             margin-top: 14px;
@@ -326,244 +522,186 @@
             font-weight: 600;
             color: var(--text-muted);
         }
+
         @keyframes saveHintFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         @keyframes saveHintFadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="top-bar">
-    <div class="top-bar-title">جامعة المعارف</div>
-</div>
-
-<div class="main-wrapper">
-    <div class="container">
-        <h2 class="page-title">إصدار الهوية الذكية</h2>
-
-        <div class="instructions" id="instructionsBox">
-            <font>أرشادات:</font>
-            ١. اكتب الـ ID الخاص بك.<br>
-            ٢. اضغط أنشاء الكيو ار ثم <b>حفظ</b>.<br>
-            ٣. أبرز الصورة لقرائتها عند أخذ الحضور.
-        </div>
-
-        <div id="inputBox">
-            <input type="text" id="studentNameForQR" class="input-field" placeholder="اكتب الـ ID هنا (مثال: 1153000067)" autocomplete="off">
-            <button class="btn btn-primary" onclick="generateQR()" id="btnGenerate">
-                <span>أنشاء الكيو ار الخاص بي</span><i class="fas fa-magic btn-icon"></i>
-            </button>
-        </div>
-
-        <div id="qrResultBox" style="display:none; flex-direction:column; align-items:center;">
-            <div class="qr-frame">
-                <img id="qrImage" src="" alt="Student QR Code">
-                <div class="student-name-display" id="displayName"></div>
-            </div>
-            
-            <div class="btn-row">
-                <button class="btn-half btn-half-save" onclick="saveQRToGallery()" id="btnSave">
-                    <span>حفظ</span><i class="fas fa-download btn-half-icon"></i>
-                </button>
-                <button class="btn-half btn-half-share" onclick="shareQR()" id="btnShare">
-                    <span>مشاركة</span><i class="fas fa-share-alt btn-half-icon"></i>
-                </button>
-            </div>
-            <button class="btn btn-dept" onclick="resetQR()">
-                <span>إنشاء باركود آخر</span><i class="fas fa-redo-alt btn-icon"></i>
-            </button>
-        </div>
-
+    <div class="top-bar">
+        <div class="top-bar-title">جامعة المعارف</div>
     </div>
-</div>
 
-<div class="footer"><a href="https://har37ith.vercel.app/" target="_blank">تم التطوير بواسطة حارث</a></div>
+    <div class="main-wrapper">
+        <div class="container">
+            <h2 class="page-title">إصدار الهوية الذكية</h2>
 
-<div id="saveHintOverlay" class="save-hint-overlay" style="display: none;" aria-hidden="true"></div>
+            <div class="instructions" id="instructionsBox">
+                <font>أرشادات:</font>
+                ١. اكتب الـ ID الخاص بك.<br>
+                ٢. اضغط أنشاء الكيو ار ثم <b>حفظ</b>.<br>
+                ٣. أبرز الصورة لقرائتها عند أخذ الحضور.
+            </div>
 
-<script>
-    function showSaveHintModal() {
-        var overlay = document.getElementById("saveHintOverlay");
-        overlay.innerHTML =
-            '<div class="save-hint-modal" role="dialog" aria-live="polite">' +
-            '<i class="fas fa-mobile-screen-button" aria-hidden="true"></i>' +
-            '<p>اعمل <b style="color:var(--secondary)">حفظ</b> من الزر أدناه، أو خُذْ لقطة شاشة (سكرين شوت) للصورة.</p>' +
-            '<small>تختفي هذه النافذة تلقائياً</small>' +
-            "</div>";
-        overlay.style.display = "flex";
-        overlay.setAttribute("aria-hidden", "false");
-        var ms = 4200;
-        setTimeout(function () {
+            <div id="inputBox">
+                <input type="text" id="studentNameForQR" class="input-field"
+                    placeholder="اكتب الـ ID هنا (مثال: 1153000067)" autocomplete="off">
+                <button class="btn btn-primary" onclick="generateQR()" id="btnGenerate">
+                    <span>أنشاء الكيو ار الخاص بي</span><i class="fas fa-magic btn-icon"></i>
+                </button>
+            </div>
+
+            <div id="qrResultBox" style="display:none; flex-direction:column; align-items:center;">
+                <div class="qr-frame">
+                    <img id="qrImage" src="" alt="Student QR Code">
+                    <div class="student-name-display" id="displayName"></div>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn-half btn-half-save" onclick="saveQRToGallery()" id="btnSave">
+                        <span>حفظ</span><i class="fas fa-download btn-half-icon"></i>
+                    </button>
+                    <button class="btn-half btn-half-share" onclick="shareQR()" id="btnShare">
+                        <span>مشاركة</span><i class="fas fa-share-alt btn-half-icon"></i>
+                    </button>
+                </div>
+                <button class="btn btn-dept" onclick="resetQR()">
+                    <span>إنشاء باركود آخر</span><i class="fas fa-redo-alt btn-icon"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer"><a href="https://har37ith.vercel.app/" target="_blank">تم التطوير بواسطة حارث</a></div>
+
+    <div id="saveHintOverlay" class="save-hint-overlay" style="display: none;" aria-hidden="true"></div>
+
+    <div id="confirmOverlay" class="save-hint-overlay" style="display: none;" aria-hidden="true">
+        <div class="save-hint-modal confirm-modal" role="dialog" aria-modal="true">
+            <i class="fas fa-question-circle" style="color: var(--warning); font-size: 3rem; margin-bottom: 15px;"></i>
+            <p style="font-size: 18px; font-weight: bold;">هل أنت متأكد أن هذا الـ ID خاص بك؟</p>
+            <h3 id="confirmIdDisplay" style="color: var(--primary); font-size: 26px; margin: 15px 0; letter-spacing: 2px; text-shadow: 0 0 10px var(--primary-glow);"></h3>
+            <div class="btn-row" style="margin-top: 15px; margin-bottom: 0;">
+                <button class="btn-half" style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-main);" onclick="closeConfirmModal()">إلغاء</button>
+                <button class="btn-half btn-half-share" onclick="proceedGenerateQR()">نعم، متأكد</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSaveHintModal() {
+            var overlay = document.getElementById("saveHintOverlay");
+            overlay.innerHTML =
+                '<div class="save-hint-modal" role="dialog" aria-live="polite">' +
+                '<i class="fas fa-mobile-screen-button" aria-hidden="true"></i>' +
+                '<p>اعمل <b style="color:var(--secondary)">حفظ</b> من الزر أدناه، أو خُذْ لقطة شاشة (سكرين شوت) للصورة.</p>' +
+                '<small>تختفي هذه النافذة تلقائياً</small>' +
+                "</div>";
+            overlay.style.display = "flex";
+            overlay.setAttribute("aria-hidden", "false");
+            var ms = 4200;
+            setTimeout(function () {
+                overlay.classList.add("hiding");
+                setTimeout(function () {
+                    overlay.style.display = "none";
+                    overlay.classList.remove("hiding");
+                    overlay.innerHTML = "";
+                    overlay.setAttribute("aria-hidden", "true");
+                }, 320);
+            }, ms);
+        }
+
+        function generateQR() {
+            var input = document.getElementById("studentNameForQR");
+            var name = input.value.trim();
+
+            if (!name) {
+                return;
+            }
+
+            if (name.length < 10) {
+                alert("يرجى إدخال 10 أرقام أو أكثر.");
+                return;
+            }
+
+            document.getElementById("confirmIdDisplay").innerText = name;
+            var overlay = document.getElementById("confirmOverlay");
+            overlay.style.display = "flex";
+            overlay.setAttribute("aria-hidden", "false");
+            overlay.classList.remove("hiding");
+        }
+
+        function closeConfirmModal() {
+            var overlay = document.getElementById("confirmOverlay");
             overlay.classList.add("hiding");
             setTimeout(function () {
                 overlay.style.display = "none";
                 overlay.classList.remove("hiding");
-                overlay.innerHTML = "";
                 overlay.setAttribute("aria-hidden", "true");
             }, 320);
-        }, ms);
-    }
-
-    function generateQR() {
-        var input = document.getElementById("studentNameForQR");
-        var name = input.value.trim();
-
-        if (!name) {
-            return;
         }
 
-        if (name.length < 10) {
-            alert("يرجى إدخال 10 أرقام أو أكثر.");
-            return;
+        function proceedGenerateQR() {
+            closeConfirmModal();
+            
+            var input = document.getElementById("studentNameForQR");
+            var name = input.value.trim();
+
+            var qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=15&data=" + encodeURIComponent(name);
+
+            document.getElementById("qrImage").src = qrUrl;
+            document.getElementById("displayName").innerText = name;
+
+            document.getElementById("inputBox").style.display = "none";
+            document.getElementById("instructionsBox").style.display = "none";
+            document.getElementById("qrResultBox").style.display = "flex";
+
+            setTimeout(showSaveHintModal, 350);
         }
 
-        if (!confirm("هل متاكد انه هذا الايدي خاص بك ؟\n(" + name + ")")) {
-            return;
+        function isIOSLike() {
+            var ua = navigator.userAgent || "";
+            if (/iPad|iPhone|iPod/.test(ua)) return true;
+            if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) return true;
+            return false;
         }
 
-        var qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=15&data=" + encodeURIComponent(name);
+        async function saveQRToGallery() {
+            var name = document.getElementById("displayName").innerText;
+            var qrUrl = document.getElementById("qrImage").src;
 
-        document.getElementById("qrImage").src = qrUrl;
-        document.getElementById("displayName").innerText = name;
+            var btn = document.getElementById("btnSave");
+            var originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span>جاري الحفظ...</span><i class="fas fa-spinner fa-spin btn-half-icon"></i>';
+            btn.disabled = true;
 
-        document.getElementById("inputBox").style.display = "none";
-        document.getElementById("instructionsBox").style.display = "none";
-        document.getElementById("qrResultBox").style.display = "flex";
+            try {
+                var response = await fetch(qrUrl);
+                var blob = await response.blob();
+                var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
 
-        showSaveHintModal();
-    }
-
-    function isIOSLike() {
-        var ua = navigator.userAgent || "";
-        if (/iPad|iPhone|iPod/.test(ua)) return true;
-        if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) return true;
-        return false;
-    }
-
-    async function saveQRToGallery() {
-        var name = document.getElementById("displayName").innerText;
-        var qrUrl = document.getElementById("qrImage").src;
-
-        var btn = document.getElementById("btnSave");
-        var originalHTML = btn.innerHTML;
-        btn.innerHTML = '<span>جاري الحفظ...</span><i class="fas fa-spinner fa-spin btn-half-icon"></i>';
-        btn.disabled = true;
-
-        try {
-            var response = await fetch(qrUrl);
-            var blob = await response.blob();
-            var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
-
-            // For Android and other devices - direct download
-            var url = URL.createObjectURL(blob);
-            var link = document.createElement("a");
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(function () { URL.revokeObjectURL(url); }, 2500);
-
-            btn.innerHTML = '<span>تم الحفظ</span><i class="fas fa-check btn-half-icon"></i>';
-            setTimeout(function () {
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-            }, 2000);
-        } catch (err) {
-            alert("عذراً، حدث خطأ. جرّب لقطة الشاشة.");
-            btn.innerHTML = originalHTML;
-            btn.disabled = false;
-        }
-    }
-
-    async function shareQR() {
-        var name = document.getElementById("displayName").innerText;
-        var qrUrl = document.getElementById("qrImage").src;
-
-        var btn = document.getElementById("btnShare");
-        var originalHTML = btn.innerHTML;
-        btn.innerHTML = '<span>جاري التحميل...</span><i class="fas fa-spinner fa-spin btn-half-icon"></i>';
-        btn.disabled = true;
-
-        try {
-            var response = await fetch(qrUrl);
-            var blob = await response.blob();
-            var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
-            var file = new File([blob], filename, { type: blob.type || "image/png" });
-
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({ files: [file], title: filename });
-                btn.innerHTML = '<span>تمت المشاركة</span><i class="fas fa-check btn-half-icon"></i>';
-                setTimeout(function () {
-                    btn.innerHTML = originalHTML;
-                    btn.disabled = false;
-                }, 2000);
-            } else {
-                // Fallback: copy link or show alert
-                alert("المشاركة غير مدعومة في هذا المتصفح. يمكنك حفظ الصورة ثم مشاركتها يدوياً.");
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-            }
-        } catch (err) {
-            if (err.name !== 'AbortError') {
-                alert("عذراً، حدث خطأ أثناء المشاركة.");
-            }
-            btn.innerHTML = originalHTML;
-            btn.disabled = false;
-        }
-    }
-
-    async function downloadQR() {
-        var name = document.getElementById("displayName").innerText;
-        var qrUrl = document.getElementById("qrImage").src;
-
-        var btn = document.getElementById("btnDownload");
-        var originalHTML = btn.innerHTML;
-        btn.innerHTML = '<span>جاري التحميل...</span><i class="fas fa-spinner fa-spin btn-icon"></i>';
-        btn.disabled = true;
-
-        try {
-            var response = await fetch(qrUrl);
-            var blob = await response.blob();
-            var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
-            var file = new File([blob], filename, { type: blob.type || "image/png" });
-
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({ files: [file], title: filename });
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-                return;
-            }
-
-            var url = URL.createObjectURL(blob);
-
-            if (isIOSLike()) {
-                var w = window.open("");
-                if (w) {
-                    w.document.write(
-                        "<!DOCTYPE html><html lang=\"ar\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>" +
-                            filename +
-                            "</title><style>body{margin:0;background:#020617;color:#f8fafc;font-family:Cairo,sans-serif;text-align:center;padding:16px}img{max-width:100%;height:auto;border-radius:12px;border:3px solid #fff}p{line-height:1.7;font-size:15px;margin-top:16px}</style></head><body><p style=\"color:#38bdf8;font-weight:800\">اضغط مطولاً على الصورة ← «حفظ في الصور»</p><img src=\"" +
-                            url +
-                            "\" alt=\"\"><p>إن لم يظهر الحفظ، استخدم لقطة الشاشة من الجهاز.</p></body></html>"
-                    );
-                    w.document.close();
-                } else {
-                    var aTab = document.createElement("a");
-                    aTab.href = url;
-                    aTab.target = "_blank";
-                    aTab.rel = "noopener";
-                    document.body.appendChild(aTab);
-                    aTab.click();
-                    document.body.removeChild(aTab);
-                }
-                setTimeout(function () { URL.revokeObjectURL(url); }, 120000);
-            } else {
+                // For Android and other devices - direct download
+                var url = URL.createObjectURL(blob);
                 var link = document.createElement("a");
                 link.href = url;
                 link.download = filename;
@@ -571,29 +709,132 @@
                 link.click();
                 document.body.removeChild(link);
                 setTimeout(function () { URL.revokeObjectURL(url); }, 2500);
-            }
 
-            btn.innerHTML = '<span>تم بنجاح</span><i class="fas fa-check btn-icon"></i>';
-            setTimeout(function () {
+                btn.innerHTML = '<span>تم الحفظ</span><i class="fas fa-check btn-half-icon"></i>';
+                setTimeout(function () {
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                }, 2000);
+            } catch (err) {
+                alert("عذراً، حدث خطأ. جرّب لقطة الشاشة.");
                 btn.innerHTML = originalHTML;
                 btn.disabled = false;
-            }, 2000);
-        } catch (err) {
-            alert("عذراً، حدث خطأ. جرّب لقطة الشاشة أو افتح رابط الباركود في متصفح آخر.");
-            btn.innerHTML = originalHTML;
-            btn.disabled = false;
+            }
         }
-    }
-    
-    function resetQR() { 
-        document.getElementById("studentNameForQR").value = ""; 
-        document.getElementById("qrResultBox").style.display = "none"; 
-        // إعادة إظهار التعليمات وحقل الإدخال
-        document.getElementById("instructionsBox").style.display = "block";
-        document.getElementById("inputBox").style.display = "block"; 
-        document.getElementById("studentNameForQR").focus();
-    }
-</script>
-</body>
-</html>
 
+        async function shareQR() {
+            var name = document.getElementById("displayName").innerText;
+            var qrUrl = document.getElementById("qrImage").src;
+
+            var btn = document.getElementById("btnShare");
+            var originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span>جاري التحميل...</span><i class="fas fa-spinner fa-spin btn-half-icon"></i>';
+            btn.disabled = true;
+
+            try {
+                var response = await fetch(qrUrl);
+                var blob = await response.blob();
+                var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
+                var file = new File([blob], filename, { type: blob.type || "image/png" });
+
+                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({ files: [file], title: filename });
+                    btn.innerHTML = '<span>تمت المشاركة</span><i class="fas fa-check btn-half-icon"></i>';
+                    setTimeout(function () {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                    }, 2000);
+                } else {
+                    // Fallback: copy link or show alert
+                    alert("المشاركة غير مدعومة في هذا المتصفح. يمكنك حفظ الصورة ثم مشاركتها يدوياً.");
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    alert("عذراً، حدث خطأ أثناء المشاركة.");
+                }
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
+        }
+
+        async function downloadQR() {
+            var name = document.getElementById("displayName").innerText;
+            var qrUrl = document.getElementById("qrImage").src;
+
+            var btn = document.getElementById("btnDownload");
+            var originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span>جاري التحميل...</span><i class="fas fa-spinner fa-spin btn-icon"></i>';
+            btn.disabled = true;
+
+            try {
+                var response = await fetch(qrUrl);
+                var blob = await response.blob();
+                var filename = "هوية_الحضور_" + name.replace(/\s+/g, "_") + ".png";
+                var file = new File([blob], filename, { type: blob.type || "image/png" });
+
+                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({ files: [file], title: filename });
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                    return;
+                }
+
+                var url = URL.createObjectURL(blob);
+
+                if (isIOSLike()) {
+                    var w = window.open("");
+                    if (w) {
+                        w.document.write(
+                            "<!DOCTYPE html><html lang=\"ar\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>" +
+                            filename +
+                            "</title><style>body{margin:0;background:#020617;color:#f8fafc;font-family:Cairo,sans-serif;text-align:center;padding:16px}img{max-width:100%;height:auto;border-radius:12px;border:3px solid #fff}p{line-height:1.7;font-size:15px;margin-top:16px}</style></head><body><p style=\"color:#38bdf8;font-weight:800\">اضغط مطولاً على الصورة ← «حفظ في الصور»</p><img src=\"" +
+                            url +
+                            "\" alt=\"\"><p>إن لم يظهر الحفظ، استخدم لقطة الشاشة من الجهاز.</p></body></html>"
+                        );
+                        w.document.close();
+                    } else {
+                        var aTab = document.createElement("a");
+                        aTab.href = url;
+                        aTab.target = "_blank";
+                        aTab.rel = "noopener";
+                        document.body.appendChild(aTab);
+                        aTab.click();
+                        document.body.removeChild(aTab);
+                    }
+                    setTimeout(function () { URL.revokeObjectURL(url); }, 120000);
+                } else {
+                    var link = document.createElement("a");
+                    link.href = url;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    setTimeout(function () { URL.revokeObjectURL(url); }, 2500);
+                }
+
+                btn.innerHTML = '<span>تم بنجاح</span><i class="fas fa-check btn-icon"></i>';
+                setTimeout(function () {
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                }, 2000);
+            } catch (err) {
+                alert("عذراً، حدث خطأ. جرّب لقطة الشاشة أو افتح رابط الباركود في متصفح آخر.");
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
+        }
+
+        function resetQR() {
+            document.getElementById("studentNameForQR").value = "";
+            document.getElementById("qrResultBox").style.display = "none";
+            // إعادة إظهار التعليمات وحقل الإدخال
+            document.getElementById("instructionsBox").style.display = "block";
+            document.getElementById("inputBox").style.display = "block";
+            document.getElementById("studentNameForQR").focus();
+        }
+    </script>
+</body>
+
+</html>
