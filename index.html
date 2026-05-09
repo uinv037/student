@@ -173,13 +173,13 @@
             display: flex;
             width: 100%;
             margin-bottom: 16px;
-            gap: 0;
+            gap: 15px;
         }
         .btn-half {
             flex: 1;
             border: 1px solid transparent;
             font-size: 15px;
-            border-radius: 0;
+            border-radius: 16px;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -196,11 +196,10 @@
             height: 52px;
         }
         .btn-half:first-child {
-            border-radius: 16px 0 0 16px;
-            border-right: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
         }
         .btn-half:last-child {
-            border-radius: 0 16px 16px 0;
+            border-radius: 16px;
         }
         .btn-half::before {
             content: '';
@@ -348,16 +347,16 @@
         <h2 class="page-title">إصدار الهوية الذكية</h2>
 
         <div class="instructions" id="instructionsBox">
-            <font><i class="fas fa-info-circle"></i> طالبنا العزيز:</font>
-            ١. اكتب اسمك الرباعي كاملاً.<br>
-            ٢. اضغط توليد ثم <b>حفظ</b>.<br>
+            <font>أرشادات:</font>
+            ١. عزيزي الـ طالب/ه اكتب الـ ID الخاص بك.<br>
+            ٢. اضغط أنشاء الكيو ار الخاص بي ثم <b>حفظ</b>.<br>
             ٣. أبرز الصورة لقرائتها عند أخذ الحضور.
         </div>
 
         <div id="inputBox">
-            <input type="text" id="studentNameForQR" class="input-field" placeholder="اكتب اسمك الرباعي هنا..." autocomplete="off">
+            <input type="text" id="studentNameForQR" class="input-field" placeholder="اكتب الـ ID هنا (مثال: 1153000067)" autocomplete="off">
             <button class="btn btn-primary" onclick="generateQR()" id="btnGenerate">
-                <span>توليد الباركود الخاص بي</span><i class="fas fa-magic btn-icon"></i>
+                <span>أنشاء الكيو ار الخاص بي</span><i class="fas fa-magic btn-icon"></i>
             </button>
         </div>
 
@@ -388,10 +387,6 @@
 <div id="saveHintOverlay" class="save-hint-overlay" style="display: none;" aria-hidden="true"></div>
 
 <script>
-    function countNameParts(name) {
-        return name.split(/\s+/).filter(function (p) { return p.length > 0; }).length;
-    }
-
     function showSaveHintModal() {
         var overlay = document.getElementById("saveHintOverlay");
         overlay.innerHTML =
@@ -422,7 +417,12 @@
             return;
         }
 
-        if (countNameParts(name) < 4) {
+        if (name.length < 10) {
+            alert("يرجى إدخال 10 أرقام أو أكثر.");
+            return;
+        }
+
+        if (!confirm("هل متاكد انه هذا الايدي خاص بك ؟\n(" + name + ")")) {
             return;
         }
 
@@ -596,3 +596,4 @@
 </script>
 </body>
 </html>
+
